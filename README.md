@@ -1,6 +1,6 @@
 # NETCOM Technical Test — E-Commerce Dashboard
 
-Dashboard fullstack untuk dataset [Olist Brazilian E-commerce](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce).
+Dashboard fullstack.
 Backend Express + PostgreSQL, frontend Angular Material. Semua service dijalankan dengan satu `docker compose up -d`.
 
 ## Cara Menjalankan
@@ -15,19 +15,19 @@ Saat pertama kali dijalankan, service `db-dump` akan mengimpor dataset (~1,5 jut
 
 Setelah selesai:
 
-| Service | Alamat |
-|---|---|
-| Frontend | http://localhost:4200 |
-| API | http://localhost:3000 |
+| Service    | Alamat                                              |
+| ---------- | --------------------------------------------------- |
+| Frontend   | http://localhost:4200                               |
+| API        | http://localhost:3000                               |
 | PostgreSQL | localhost:5432 (db `test_be`, user/pass `postgres`) |
 
 Buka http://localhost:4200, login dengan salah satu akun berikut (sudah ada di dalam dump):
 
-| Role | Email | Password | Akses |
-|---|---|---|---|
-| admin | admin@example.com | Admin123! | Semua halaman |
-| sellers | seller@example.com | Seller123! | Dashboard revenue & anomali, products |
-| customers | customer@example.com | Customer123! | Orders, pesanan belum dikirim |
+| Role      | Email                | Password     | Akses                                 |
+| --------- | -------------------- | ------------ | ------------------------------------- |
+| admin     | admin@example.com    | Admin123!    | Semua halaman                         |
+| sellers   | seller@example.com   | Seller123!   | Dashboard revenue & anomali, products |
+| customers | customer@example.com | Customer123! | Orders, pesanan belum dikirim         |
 
 Registrasi akun baru juga tersedia di halaman login (default role `customers`).
 

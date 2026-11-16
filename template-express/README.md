@@ -1,12 +1,12 @@
-# E-Commerce API — Olist Dataset
+# E-Commerce API
 
-REST API untuk data e-commerce Olist, dibangun dengan TypeScript, Express 5, dan PostgreSQL (Sequelize). Autentikasi JWT dengan role-based access (`admin`, `customers`, `sellers`).
+REST API untuk data e-commerce, dibangun dengan TypeScript, Express 5, dan PostgreSQL (Sequelize). Autentikasi JWT dengan role-based access (`admin`, `customers`, `sellers`).
 
 Dokumentasi lengkap seluruh sistem (database, backend, frontend sekaligus via Docker Compose) ada di [README root](../README.md). README ini khusus backend.
 
 ## Struktur Data
 
-Database `test_be` berisi tabel `users` (aplikasi) dan 9 tabel dataset Olist. DDL lengkap di [schema.sql](schema.sql); seluruh isi database tersedia dalam satu file dump [olist_dump.sql](olist_dump.sql) (di repo dalam bentuk terkompresi `olist_dump.sql.gz`).
+Database `test_be` berisi tabel `users` (aplikasi) dan 9 tabel dataset. DDL lengkap di [schema.sql](schema.sql); seluruh isi database tersedia dalam satu file dump [olist_dump.sql](olist_dump.sql) (di repo dalam bentuk terkompresi `olist_dump.sql.gz`).
 
 Beberapa catatan data:
 
@@ -18,11 +18,11 @@ Beberapa catatan data:
 
 Dump menyertakan 3 akun contoh (password bcrypt, hanya untuk development):
 
-| Role | Email | Password |
-|---|---|---|
-| admin | admin@example.com | Admin123! |
+| Role      | Email                | Password     |
+| --------- | -------------------- | ------------ |
+| admin     | admin@example.com    | Admin123!    |
 | customers | customer@example.com | Customer123! |
-| sellers | seller@example.com | Seller123! |
+| sellers   | seller@example.com   | Seller123!   |
 
 ## Menjalankan
 
@@ -37,10 +37,9 @@ Service `db-dump` mengimpor dump ke Postgres saat `DB_DUMP=true` (hanya sekali, 
 ### Langsung di host
 
 ```bash
-cp .env.example .env    # isi DATABASE_URL, JWT_SECRET, dst.
+cp .env.example .env
 npm install
-npm run dev             # development (nodemon + ts-node)
-# atau
+npm run dev
 npm run build && npm start
 ```
 
@@ -50,7 +49,7 @@ API jalan di `http://localhost:3000`.
 
 ```bash
 createdb test_be
-npm run db:restore      # psql "$DATABASE_URL" -f olist_dump.sql
+npm run db:restore
 ```
 
 Untuk memuat ulang dari nol: `psql "$DATABASE_URL" -c 'drop schema public cascade; create schema public;'` lalu restore lagi.
@@ -89,10 +88,16 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 ```json
-{ "data": { "month": 1, "year": 2018, "data": [
-  { "date": "2018-01-01", "revenue": 8391.92, "order_count": 73 },
-  { "date": "2018-01-02", "revenue": 29410.51, "order_count": 203 }
-] } }
+{
+  "data": {
+    "month": 1,
+    "year": 2018,
+    "data": [
+      { "date": "2018-01-01", "revenue": 8391.92, "order_count": 73 },
+      { "date": "2018-01-02", "revenue": 29410.51, "order_count": 203 }
+    ]
+  }
+}
 ```
 
 ### Anomali revenue — `GET /api/revenues/anomalies` (secured)
@@ -105,11 +110,26 @@ curl -H "Authorization: Bearer $TOKEN" \
 ```
 
 ```json
-{ "data": { "month": 1, "year": 2018, "threshold": 2, "mean": 35545.81, "std_dev": 7893.99,
-  "anomaly_count": 1, "data": [
-  { "date": "2018-01-01", "revenue": 8391.92, "order_count": 73, "z_score": -3.44,
-    "is_anomaly": true, "direction": "below" }
-] } }
+{
+  "data": {
+    "month": 1,
+    "year": 2018,
+    "threshold": 2,
+    "mean": 35545.81,
+    "std_dev": 7893.99,
+    "anomaly_count": 1,
+    "data": [
+      {
+        "date": "2018-01-01",
+        "revenue": 8391.92,
+        "order_count": 73,
+        "z_score": -3.44,
+        "is_anomaly": true,
+        "direction": "below"
+      }
+    ]
+  }
+}
 ```
 
 Pada data aktual, 1 Januari 2018 terdeteksi anomali rendah — revenue libur Tahun Baru jauh di bawah rata-rata.
@@ -124,14 +144,14 @@ Operasi standar: `GET /api/{resource}?page=1&limit=20` (list, maks limit 100), `
 
 Hak akses per role (admin selalu punya akses penuh):
 
-| Endpoint | sellers | customers |
-|---|---|---|
-| `GET /api/revenues/*` | ya | tidak |
-| tulis `products` | ya | tidak |
-| `orders`, `order-items`, `order-payments`, `order-reviews` | tidak | ya |
-| CRUD `customers`, `sellers` (data master) | tidak | tidak |
-| tulis `product-categories`, `geolocations` | tidak | tidak |
-| baca `products`, `product-categories`, `geolocations` | ya | ya |
+| Endpoint                                                   | sellers | customers |
+| ---------------------------------------------------------- | ------- | --------- |
+| `GET /api/revenues/*`                                      | ya      | tidak     |
+| tulis `products`                                           | ya      | tidak     |
+| `orders`, `order-items`, `order-payments`, `order-reviews` | tidak   | ya        |
+| CRUD `customers`, `sellers` (data master)                  | tidak   | tidak     |
+| tulis `product-categories`, `geolocations`                 | tidak   | tidak     |
+| baca `products`, `product-categories`, `geolocations`      | ya      | ya        |
 
 Contoh:
 
