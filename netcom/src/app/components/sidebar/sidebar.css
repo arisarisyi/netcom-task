@@ -1,0 +1,92 @@
+.side {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 16px 12px;
+  background: var(--mat-sys-surface);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px 20px;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: var(--mat-sys-primary);
+  color: var(--mat-sys-on-primary);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.brand-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--mat-sys-on-surface);
+}
+
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.side-section {
+  margin: 16px 12px 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.side-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: var(--mat-sys-on-surface-variant);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+a.side-item:hover {
+  background: color-mix(in srgb, var(--mat-sys-primary) 8%, transparent);
+  color: var(--mat-sys-on-surface);
+}
+
+a.side-item.active {
+  background: var(--mat-sys-secondary-container);
+  color: var(--mat-sys-on-secondary-container);
+  font-weight: 600;
+}
+
+.side-item .material-symbols-outlined {
+  font-size: 22px;
+}
+
+.side-item.disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.side-item .hint {
+  margin-left: auto;
+  font-size: 0.7rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.side-footer {
+  margin: 12px 12px 0;
+  font-size: 0.75rem;
+  color: var(--mat-sys-on-surface-variant);
+}

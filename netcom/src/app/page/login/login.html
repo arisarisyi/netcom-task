@@ -1,0 +1,162 @@
+<div class="bg-abstract"></div>
+<div class="login-container">
+  <main class="card">
+    <header class="card--header">
+      <div class="logo-wrapper">
+        <img
+          src="https://storage.ppa-ho.net/public/ppa-component-library/uam.png"
+          alt="uam-logo"
+          class="logo"
+        />
+      </div>
+      <div class="header">
+        <h2>Dashboard</h2>
+        <p>Silakan login dengan akun Anda</p>
+      </div>
+    </header>
+
+    @if (mode() === 'login') {
+      <form class="login-form" [formGroup]="loginForm" (submit)="handleLogin($event)" novalidate>
+        @if (error()) {
+          <p class="notif notif-warning" role="alert">{{ error() }}</p>
+        }
+        @if (success()) {
+          <output class="notif notif-success">{{ success() }}</output>
+        }
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            id="email"
+            name="email"
+            formControlName="email"
+            autocomplete="username"
+            placeholder="Masukkan email ..."
+            required
+          />
+          @if (loginForm.controls.email.hasError('required') && loginForm.controls.email.touched) {
+            <mat-error>Email wajib diisi.</mat-error>
+          } @else if (loginForm.controls.email.hasError('email')) {
+            <mat-error>Format email tidak valid.</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            id="password"
+            name="password"
+            formControlName="password"
+            autocomplete="current-password"
+            placeholder="Masukkan password ..."
+            [type]="showPassword() ? 'text' : 'password'"
+            required
+          />
+          <button
+            matIconButton
+            matSuffix
+            type="button"
+            (click)="togglePassword()"
+            [attr.aria-label]="showPassword() ? 'Sembunyikan password' : 'Tampilkan password'"
+          >
+            <span class="material-symbols-outlined">
+              {{ showPassword() ? 'visibility_off' : 'visibility' }}
+            </span>
+          </button>
+          @if (loginForm.controls.password.hasError('required') && loginForm.controls.password.touched) {
+            <mat-error>Password wajib diisi.</mat-error>
+          }
+        </mat-form-field>
+        <button matButton="filled" type="submit" class="btn-block" [disabled]="submitting()">
+          {{ submitting() ? 'Memproses…' : 'Login' }}
+        </button>
+        <button matButton type="button" class="btn-block" (click)="showRegister()">
+          Belum punya akun? Daftar
+        </button>
+      </form>
+    }
+
+    @if (mode() === 'register') {
+      <form class="login-form" [formGroup]="registerForm" (submit)="handleRegister($event)" novalidate>
+        @if (error()) {
+          <p class="notif notif-warning" role="alert">{{ error() }}</p>
+        }
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Nama</mat-label>
+          <input
+            matInput
+            type="text"
+            id="reg-name"
+            name="name"
+            formControlName="name"
+            autocomplete="name"
+            placeholder="Masukkan nama ..."
+            required
+          />
+          @if (registerForm.controls.name.hasError('required') && registerForm.controls.name.touched) {
+            <mat-error>Nama wajib diisi.</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            type="email"
+            id="reg-email"
+            name="email"
+            formControlName="email"
+            autocomplete="username"
+            placeholder="Masukkan email ..."
+            required
+          />
+          @if (registerForm.controls.email.hasError('required') && registerForm.controls.email.touched) {
+            <mat-error>Email wajib diisi.</mat-error>
+          } @else if (registerForm.controls.email.hasError('email')) {
+            <mat-error>Format email tidak valid.</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            id="reg-password"
+            name="password"
+            formControlName="password"
+            autocomplete="new-password"
+            placeholder="Masukkan password ..."
+            [type]="showPassword() ? 'text' : 'password'"
+            required
+          />
+          <button
+            matIconButton
+            matSuffix
+            type="button"
+            (click)="togglePassword()"
+            [attr.aria-label]="showPassword() ? 'Sembunyikan password' : 'Tampilkan password'"
+          >
+            <span class="material-symbols-outlined">
+              {{ showPassword() ? 'visibility_off' : 'visibility' }}
+            </span>
+          </button>
+          @if (registerForm.controls.password.hasError('required') && registerForm.controls.password.touched) {
+            <mat-error>Password wajib diisi.</mat-error>
+          } @else if (registerForm.controls.password.hasError('minlength')) {
+            <mat-error>Password minimal 6 karakter.</mat-error>
+          }
+        </mat-form-field>
+        <button matButton="filled" type="submit" class="btn-block" [disabled]="submitting()">
+          {{ submitting() ? 'Memproses…' : 'Daftar' }}
+        </button>
+        <button matButton type="button" class="btn-block" (click)="showLogin()">
+          Sudah punya akun? Login
+        </button>
+      </form>
+    }
+  </main>
+  <p class="disclaimer">
+    Dengan menekan <strong>Login</strong> Anda menyetujui <strong>persyaratan, </strong>
+    <strong>kebijakan</strong> dan <strong>ketentuan keamanan informasi</strong>, termasuk
+    perlindungan terhadap data dan akses sistem
+  </p>
+</div>

@@ -1,0 +1,11 @@
+.field-row .opt-note {
+  font-size: 0.75rem;
+}
+
+.w-full {
+  width: 100%;
+}
+
+input.locked {
+  color: var(--mat-sys-on-surface-variant);
+}

@@ -1,0 +1,82 @@
+@if (config(); as cfg) {
+  <header class="crud-head">
+    <div>
+      <h1 class="crud-title">{{ cfg.title }}</h1>
+      <p class="crud-sub">Kelola data {{ cfg.title.toLowerCase() }} — tampilkan, tambah, ubah, hapus.</p>
+    </div>
+    <div class="crud-actions">
+      <button matButton type="button" (click)="refresh()" aria-label="Muat ulang">
+        <span class="material-symbols-outlined" aria-hidden="true">refresh</span>
+        <span class="btn-label">Muat ulang</span>
+      </button>
+      @if (canWrite()) {
+        <button matButton="filled" type="button" (click)="openCreate()">
+          <span class="material-symbols-outlined" aria-hidden="true">add</span>
+          <span class="btn-label">Tambah</span>
+        </button>
+      }
+      @if (saving()) {
+        <mat-spinner diameter="24" />
+      }
+    </div>
+  </header>
+
+  @if (error()) {
+    <div class="crud-error" role="alert">{{ error() }}</div>
+  }
+
+  <div class="crud-card">
+    <div class="table-scroll">
+      @if (rows().length > 0) {
+      <table
+        mat-table
+        [dataSource]="rows()"
+        class="crud-table"
+        matSort
+        [matSortActive]="sortField() ?? ''"
+        [matSortDirection]="sortDir()"
+        (matSortChange)="onSortChange($event)"
+      >
+        @for (f of visibleFields(); track f.key) {
+          <ng-container [matColumnDef]="f.key">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ f.label }}</th>
+            <td mat-cell *matCellDef="let row" [class.mono]="isLongId(f, row)">
+              <span class="cell" [attr.title]="cellValue(f, row)">{{ cellValue(f, row) }}</span>
+            </td>
+          </ng-container>
+        }
+
+        @if (canWrite()) {
+          <ng-container matColumnDef="aksi">
+            <th mat-header-cell *matHeaderCellDef class="th-aksi">Aksi</th>
+            <td mat-cell *matCellDef="let row" class="td-aksi">
+              <button matIconButton type="button" aria-label="Ubah" (click)="openEdit(row)">
+                <span class="material-symbols-outlined" aria-hidden="true">edit</span>
+              </button>
+              <button matIconButton type="button" aria-label="Hapus" (click)="confirmDelete(row)">
+                <span class="material-symbols-outlined" aria-hidden="true">delete</span>
+              </button>
+            </td>
+          </ng-container>
+        }
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns()"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns()"></tr>
+      </table>
+      } @else if (!loading()) {
+        <div class="empty-state">Tidak ada data.</div>
+      }
+      @if (loading()) {
+        <div class="crud-loading"><mat-spinner diameter="32" /></div>
+      }
+    </div>
+    <mat-paginator
+      [length]="total()"
+      [pageIndex]="pageIndex()"
+      [pageSize]="pageSize()"
+      [pageSizeOptions]="[10, 20, 50]"
+      [showFirstLastButtons]="true"
+      (page)="onPage($event)"
+    />
+  </div>
+}

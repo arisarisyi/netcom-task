@@ -1,0 +1,28 @@
+<div class="side">
+  <div class="brand">
+    <span class="brand-mark" aria-hidden="true">N</span>
+    <span class="brand-name">Netcom</span>
+  </div>
+
+  <nav class="side-nav" aria-label="Menu utama">
+    @for (section of sections(); track section.title) {
+      <p class="side-section">{{ section.title }}</p>
+      @for (item of section.items; track item.label) {
+        <a
+          class="side-item"
+          [routerLink]="item.path"
+          routerLinkActive="active"
+          (click)="navigated.emit()"
+        >
+          <span class="material-symbols-outlined" aria-hidden="true">{{ item.icon }}</span>
+          <span>{{ item.label }}</span>
+          @if (item.hint) {
+            <span class="hint">{{ item.hint }}</span>
+          }
+        </a>
+      }
+    }
+  </nav>
+
+  <p class="side-footer">© Netcom</p>
+</div>

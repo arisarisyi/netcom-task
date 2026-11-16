@@ -1,0 +1,20 @@
+<mat-sidenav-container
+  class="shell"
+  [class.shell-handset]="handset().matches"
+>
+  <mat-sidenav
+    class="shell-side"
+    [mode]="handset().matches ? 'over' : 'side'"
+    [opened]="handset().matches ? drawerOpen() : true"
+    [fixedInViewport]="handset().matches"
+  >
+    <app-sidebar (navigated)="closeDrawer()" />
+  </mat-sidenav>
+
+  <mat-sidenav-content class="shell-content">
+    <app-navbar (menuToggle)="toggleDrawer()" />
+    <main class="shell-page">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

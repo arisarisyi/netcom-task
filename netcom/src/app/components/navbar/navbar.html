@@ -1,0 +1,28 @@
+<mat-toolbar class="topbar">
+  <button matIconButton type="button" class="menu-btn" aria-label="Buka menu" (click)="menuToggle.emit()">
+    <span class="material-symbols-outlined" aria-hidden="true">menu</span>
+  </button>
+  <h1 class="topbar-title">Netcom</h1>
+  <span class="flex-spacer"></span>
+  <button matButton class="user-btn" type="button" [matMenuTriggerFor]="userMenu">
+    <span class="avatar" aria-hidden="true">{{ initial() }}</span>
+    <span class="user-name">{{ displayName() }}</span>
+    <span class="material-symbols-outlined" aria-hidden="true">expand_more</span>
+  </button>
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item disabled>
+      <span class="material-symbols-outlined" aria-hidden="true">mail</span>
+      <span class="email-item">{{ user()?.email }}</span>
+    </button>
+    @if (role(); as r) {
+      <button mat-menu-item disabled>
+        <span class="material-symbols-outlined" aria-hidden="true">badge</span>
+        <span>Role: {{ r }}</span>
+      </button>
+    }
+    <button mat-menu-item (click)="logout()">
+      <span class="material-symbols-outlined" aria-hidden="true">logout</span>
+      <span>Logout</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

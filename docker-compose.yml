@@ -1,0 +1,93 @@
+name: netcom
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: netcom-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-test_be}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-test_be}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  db-dump:
+    image: postgres:16
+    container_name: netcom-db-dump
+    restart: "no"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGHOST: postgres
+      PGPORT: 5432
+      PGUSER: ${POSTGRES_USER:-postgres}
+      PGPASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      PGDATABASE: ${POSTGRES_DB:-test_be}
+      DB_DUMP: ${DB_DUMP:-true}
+    volumes:
+      - ./template-express:/dump:ro
+    entrypoint:
+      - /bin/sh
+      - -ce
+      - |
+        if [ "$$DB_DUMP" != "true" ]; then
+          echo "[db-dump] DB_DUMP != true -> lewati import dump"
+          exit 0
+        fi
+        LOADED=$$(psql -tAc "SELECT to_regclass('public._olist_dump_loaded') IS NOT NULL")
+        if [ "$$LOADED" = "t" ]; then
+          echo "[db-dump] dump olist sudah pernah dimuat -> lewati"
+          exit 0
+        fi
+        echo "[db-dump] DB_DUMP=true -> reset schema public & import dump (bisa beberapa menit)..."
+        psql -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+        if [ -f /dump/olist_dump.sql ]; then
+          echo "[db-dump] Menggunakan /dump/olist_dump.sql..."
+          psql -v ON_ERROR_STOP=1 -f /dump/olist_dump.sql
+        elif [ -f /dump/olist_dump.sql.gz ]; then
+          echo "[db-dump] Menggunakan /dump/olist_dump.sql.gz..."
+          gunzip -c /dump/olist_dump.sql.gz | psql -v ON_ERROR_STOP=1
+        else
+          echo "[db-dump] ERROR: olist_dump.sql atau olist_dump.sql.gz tidak ditemukan di template-express/"
+          exit 1
+        fi
+        psql -c "CREATE TABLE public._olist_dump_loaded (loaded_at timestamptz DEFAULT now());"
+        echo "[db-dump] import selesai."
+
+  api:
+    build: ./template-express
+    container_name: netcom-api
+    restart: always
+    ports:
+      - "${API_PORT:-3000}:3000"
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@postgres:5432/${POSTGRES_DB:-test_be}
+      JWT_SECRET: ${JWT_SECRET:-netcom_dev_secret}
+      HOST: 0.0.0.0
+      PORT: 3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      db-dump:
+        condition: service_completed_successfully
+
+  web:
+    build: ./netcom
+    container_name: netcom-web
+    restart: always
+    ports:
+      - "${WEB_PORT:-4200}:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:

@@ -1,0 +1,74 @@
+<header class="ship-head">
+  <div>
+    <h1 class="ship-title">Pesanan Belum Dikirim</h1>
+    <p class="ship-sub">
+      {{ total() }} pesanan dengan status
+      @for (s of statuses; track s; let last = $last) {
+        {{ statusLabel(s) }}{{ last ? '' : ', ' }}
+      }
+    </p>
+  </div>
+  <button matButton type="button" (click)="load()" aria-label="Muat ulang">
+    <span class="material-symbols-outlined" aria-hidden="true">refresh</span>
+    <span class="btn-label">Muat ulang</span>
+  </button>
+</header>
+
+@if (error()) {
+  <div class="ship-error" role="alert">{{ error() }}</div>
+}
+
+<div class="ship-card">
+  <div class="table-scroll">
+    @if (rows().length > 0) {
+    <table mat-table [dataSource]="rows()">
+      <ng-container matColumnDef="order_id">
+        <th mat-header-cell *matHeaderCellDef>ID Order</th>
+        <td mat-cell *matCellDef="let row" class="mono">
+          <span class="cell" [attr.title]="row.order_id">{{ row.order_id }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="status-chip">{{ statusLabel(row.order_status) }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="purchase">
+        <th mat-header-cell *matHeaderCellDef>Tanggal Beli</th>
+        <td mat-cell *matCellDef="let row">{{ fmtDateTime(row.order_purchase_timestamp) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="estimated">
+        <th mat-header-cell *matHeaderCellDef>Estimasi Tiba</th>
+        <td mat-cell *matCellDef="let row">{{ fmtDateTime(row.order_estimated_delivery_date) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="customer">
+        <th mat-header-cell *matHeaderCellDef>Customer</th>
+        <td mat-cell *matCellDef="let row" class="mono">
+          <span class="cell" [attr.title]="row.customer_id">{{ row.customer_id }}</span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    } @else if (!loading()) {
+      <div class="empty-state">Tidak ada pesanan yang belum dikirim.</div>
+    }
+    @if (loading()) {
+      <div class="ship-loading"><mat-spinner diameter="32" /></div>
+    }
+  </div>
+  <mat-paginator
+    [length]="total()"
+    [pageIndex]="pageIndex()"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="[10, 20, 50]"
+    [showFirstLastButtons]="true"
+    (page)="onPage($event)"
+  />
+</div>

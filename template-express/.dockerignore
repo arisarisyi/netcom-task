@@ -1,0 +1,8 @@
+node_modules
+dist
+.env
+Dockerfile
+docker-compose.yml
+postman
+olist_dump.sql
+olist_dump.sql.gz

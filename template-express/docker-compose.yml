@@ -1,0 +1,73 @@
+services:
+  app:
+    build: .
+    container_name: task-api
+    restart: always
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      DATABASE_URL: postgres://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/test_be
+      JWT_SECRET: ${JWT_SECRET}
+      HOST: ${HOST}
+      PORT: ${PORT}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      db-dump:
+        condition: service_completed_successfully
+
+  db-dump:
+    image: postgres:16
+    container_name: task-db-dump
+    restart: "no"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PGHOST: postgres
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      PGDATABASE: test_be
+      DB_DUMP: ${DB_DUMP:-false}
+    volumes:
+      - ./olist_dump.sql:/dump/olist_dump.sql:ro
+    entrypoint:
+      - /bin/sh
+      - -ce
+      - |
+        if [ "$$DB_DUMP" != "true" ]; then
+          echo "[db-dump] DB_DUMP != true -> lewati import dump"
+          exit 0
+        fi
+        LOADED=$$(psql -tAc "SELECT to_regclass('public._olist_dump_loaded') IS NOT NULL")
+        if [ "$$LOADED" = "t" ]; then
+          echo "[db-dump] dump olist sudah pernah dimuat -> lewati"
+          exit 0
+        fi
+        echo "[db-dump] DB_DUMP=true -> reset schema public & import olist_dump.sql (bisa beberapa menit)..."
+        psql -c "DROP SCHEMA public CASCADE; CREATE SCHEMA public;"
+        psql -v ON_ERROR_STOP=1 -f /dump/olist_dump.sql
+        psql -c "CREATE TABLE public._olist_dump_loaded (loaded_at timestamptz DEFAULT now());"
+        echo "[db-dump] import selesai."
+
+  postgres:
+    image: postgres:16
+    container_name: task-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: test_be
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d test_be"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_data:

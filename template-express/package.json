@@ -1,0 +1,44 @@
+{
+  "name": "test-be",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --runInBand",
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev": "nodemon --exec ts-node src/main.ts",
+    "db:restore": "psql \"$DATABASE_URL\" -f olist_dump.sql"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "npm@12.2.0",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.23.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.8",
+    "winston": "^3.17.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-typescript": "^7.27.0",
+    "@jest/globals": "^29.7.0",
+    "@types/express": "^5.0.1",
+    "@types/jest": "^29.5.14",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/pg": "^8.23.1",
+    "@types/supertest": "^6.0.3",
+    "babel-jest": "^29.7.0",
+    "jest": "^25.1.0",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  }
+}
