@@ -95,6 +95,10 @@ Dump database tersedia di `template-express/olist_dump.sql.gz` — diimpor otoma
 
 Catatan: file `.env` di root sengaja di-commit berisi konfigurasi development (password postgres, JWT secret dummy) supaya clone langsung bisa dijalankan tanpa setup apa pun. Jangan pakai nilai ini di production.
 
+## Analytical & Operation Skills
+
+Jawaban untuk Analytical & Operation Skills bisa di check di [analytical-operation-skill.txt](analytical-operation-skill.txt)
+
 ## Troubleshooting singkat
 
 - `netcom-api` lama waiting → tunggu `db-dump` selesai (`docker compose logs -f db-dump`).
