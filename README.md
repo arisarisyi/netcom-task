@@ -69,29 +69,29 @@ Secured:
 
   `order_items` dan `order_payments` punya composite key, mis. `/api/order-items/{order_id}/{order_item_id}`.
 
-Koleksi Postman: `template-express/postman/collection.json`.
+Koleksi Postman: `backend/postman/collection.json`.
 
 ## Struktur
 
 ```
 ├── docker-compose.yml        postgres + db-dump (import dump sekali) + api + web
 ├── erd.png / erd.drawio      diagram ERD
-├── template-express/         backend (Express 5 + Sequelize + Zod)
+├── backend/         backend (Express 5 + Sequelize + Zod)
 │   ├── src/                  controller → service → model
 │   ├── schema.sql            DDL semua tabel
 │   ├── olist_dump.sql.gz     dump database (terkompresi)
 │   └── postman/
-└── netcom/                   frontend (Angular 21 standalone + Material)
+└── frontend/                   frontend (Angular 21 standalone + Material)
     └── src/app/              core (auth, crud-config), page (login, dashboard, shipping, crud)
 ```
 
-Container `web` (Nginx) melayani SPA dan me-reverse-proxy `/api/*` ke `api`, jadi tidak ada masalah CORS. Untuk pengembangan tanpa Docker: backend `npm run dev` di `template-express/` (konfigurasi via `DATABASE_URL` di `.env`-nya), frontend `ng serve` di `netcom/` (proxy ke port 3000 via `proxy.conf.js`).
+Container `web` (Nginx) melayani SPA dan me-reverse-proxy `/api/*` ke `api`, jadi tidak ada masalah CORS. Untuk pengembangan tanpa Docker: backend `npm run dev` di `backend/` (konfigurasi via `DATABASE_URL` di `.env`-nya), frontend `ng serve` di `frontend/` (proxy ke port 3000 via `proxy.conf.js`).
 
 ## Database & ERD
 
 ERD: [erd.png](erd.png) (sumber [erd.drawio](erd.drawio), bisa dibuka di draw.io).
 
-Dump database tersedia di `template-express/olist_dump.sql.gz` — diimpor otomatis oleh service `db-dump` saat `docker compose up` pertama kali. Versi mentah `olist_dump.sql` (~190MB) tidak dimasukkan ke git karena melewati batas 100MB GitHub; kalau butuh, decompress dengan `gunzip -k olist_dump.sql.gz`.
+Dump database tersedia di `backend/olist_dump.sql.gz` — diimpor otomatis oleh service `db-dump` saat `docker compose up` pertama kali. Versi mentah `olist_dump.sql` (~190MB) tidak dimasukkan ke git karena melewati batas 100MB GitHub; kalau butuh, decompress dengan `gunzip -k olist_dump.sql.gz`.
 
 Catatan: file `.env` di root sengaja di-commit berisi konfigurasi development (password postgres, JWT secret dummy) supaya clone langsung bisa dijalankan tanpa setup apa pun. Jangan pakai nilai ini di production.
 

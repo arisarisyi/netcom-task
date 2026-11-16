@@ -1,8 +1,8 @@
 {
   "info": {
     "_postman_id": "a1f3c9e2-7b4d-4e8a-9c1b-2d5f6a8b3e7c",
-    "name": "Netcom E-commerce API (template-express)",
-    "description": "Koleksi lengkap API template-express.\n\n**Auth**: semua endpoint kecuali Register & Login memakai Bearer token. Jalankan **Users > Login** dulu — test script otomatis menyimpan `data.token` ke variable koleksi `{{token}}`.\n\nSemua list endpoint mendukung query `page` (default 1) dan `limit` (default 20, max 100) dan mengembalikan format `{ data: [...], page, limit, total, total_pages }`.",
+    "name": "Netcom E-commerce API (backend)",
+    "description": "Koleksi lengkap API backend.\n\n**Auth**: semua endpoint kecuali Register & Login memakai Bearer token. Jalankan **Users > Login** dulu — test script otomatis menyimpan `data.token` ke variable koleksi `{{token}}`.\n\nSemua list endpoint mendukung query `page` (default 1) dan `limit` (default 20, max 100) dan mengembalikan format `{ data: [...], page, limit, total, total_pages }`.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "auth": {
@@ -39,14 +39,26 @@
               "name": "201 Created",
               "originalRequest": {
                 "method": "POST",
-                "header": [{ "key": "Content-Type", "value": "application/json" }],
-                "body": { "mode": "raw", "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"secret123\",\n  \"name\": \"Admin\",\n  \"role\": \"admin\"\n}", "options": { "raw": { "language": "json" } } },
-                "url": { "raw": "{{base_url}}/api/users", "host": ["{{base_url}}"], "path": ["api", "users"] }
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"secret123\",\n  \"name\": \"Admin\",\n  \"role\": \"admin\"\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/users",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users"]
+                }
               },
               "status": "Created",
               "code": 201,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"name\": \"Admin\",\n    \"email\": \"admin@example.com\"\n  }\n}"
             },
@@ -54,13 +66,21 @@
               "name": "400 Email already exists",
               "originalRequest": {
                 "method": "POST",
-                "header": [{ "key": "Content-Type", "value": "application/json" }],
-                "url": { "raw": "{{base_url}}/api/users", "host": ["{{base_url}}"], "path": ["api", "users"] }
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/users",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "users"]
+                }
               },
               "status": "Bad Request",
               "code": 400,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"message\": \"Email already exists\"\n}"
             }
@@ -104,14 +124,26 @@
               "name": "200 OK",
               "originalRequest": {
                 "method": "POST",
-                "header": [{ "key": "Content-Type", "value": "application/json" }],
-                "body": { "mode": "raw", "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"secret123\"\n}", "options": { "raw": { "language": "json" } } },
-                "url": { "raw": "{{base_url}}/api/login", "host": ["{{base_url}}"], "path": ["api", "login"] }
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"admin@example.com\",\n  \"password\": \"secret123\"\n}",
+                  "options": { "raw": { "language": "json" } }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/login",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "login"]
+                }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"name\": \"Admin\",\n    \"email\": \"admin@example.com\",\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\"\n  }\n}"
             },
@@ -119,13 +151,21 @@
               "name": "401 Wrong credentials",
               "originalRequest": {
                 "method": "POST",
-                "header": [{ "key": "Content-Type", "value": "application/json" }],
-                "url": { "raw": "{{base_url}}/api/login", "host": ["{{base_url}}"], "path": ["api", "login"] }
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/login",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "login"]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"message\": \"Email or password is incorrect\"\n}"
             }
@@ -146,8 +186,16 @@
               "host": ["{{base_url}}"],
               "path": ["api", "revenues", "daily"],
               "query": [
-                { "key": "month", "value": "9", "description": "Bulan 1-12 (wajib)" },
-                { "key": "year", "value": "2017", "description": "Tahun 2000-2100 (wajib)" }
+                {
+                  "key": "month",
+                  "value": "9",
+                  "description": "Bulan 1-12 (wajib)"
+                },
+                {
+                  "key": "year",
+                  "value": "2017",
+                  "description": "Tahun 2000-2100 (wajib)"
+                }
               ]
             },
             "description": "Pendapatan harian (price + freight) untuk satu bulan; hari tanpa order = 0."
@@ -157,12 +205,22 @@
               "name": "200 OK",
               "originalRequest": {
                 "method": "GET",
-                "url": { "raw": "{{base_url}}/api/revenues/daily?month=9&year=2017", "host": ["{{base_url}}"], "path": ["api", "revenues", "daily"], "query": [{ "key": "month", "value": "9" }, { "key": "year", "value": "2017" }] }
+                "url": {
+                  "raw": "{{base_url}}/api/revenues/daily?month=9&year=2017",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "revenues", "daily"],
+                  "query": [
+                    { "key": "month", "value": "9" },
+                    { "key": "year", "value": "2017" }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"month\": 9,\n    \"year\": 2017,\n    \"data\": [\n      { \"date\": \"2017-09-01\", \"revenue\": 15342.9, \"order_count\": 12 },\n      { \"date\": \"2017-09-02\", \"revenue\": 9870.5, \"order_count\": 8 },\n      { \"date\": \"2017-09-03\", \"revenue\": 0, \"order_count\": 0 }\n    ]\n  }\n}"
             }
@@ -178,9 +236,21 @@
               "host": ["{{base_url}}"],
               "path": ["api", "revenues", "anomalies"],
               "query": [
-                { "key": "month", "value": "9", "description": "Bulan 1-12 (wajib)" },
-                { "key": "year", "value": "2017", "description": "Tahun 2000-2100 (wajib)" },
-                { "key": "threshold", "value": "2", "description": "Z-score threshold, default 2 (0.1-10)" }
+                {
+                  "key": "month",
+                  "value": "9",
+                  "description": "Bulan 1-12 (wajib)"
+                },
+                {
+                  "key": "year",
+                  "value": "2017",
+                  "description": "Tahun 2000-2100 (wajib)"
+                },
+                {
+                  "key": "threshold",
+                  "value": "2",
+                  "description": "Z-score threshold, default 2 (0.1-10)"
+                }
               ]
             },
             "description": "Deteksi anomali pendapatan harian berbasis z-score."
@@ -190,12 +260,23 @@
               "name": "200 OK",
               "originalRequest": {
                 "method": "GET",
-                "url": { "raw": "{{base_url}}/api/revenues/anomalies?month=9&year=2017&threshold=2", "host": ["{{base_url}}"], "path": ["api", "revenues", "anomalies"], "query": [{ "key": "month", "value": "9" }, { "key": "year", "value": "2017" }, { "key": "threshold", "value": "2" }] }
+                "url": {
+                  "raw": "{{base_url}}/api/revenues/anomalies?month=9&year=2017&threshold=2",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "revenues", "anomalies"],
+                  "query": [
+                    { "key": "month", "value": "9" },
+                    { "key": "year", "value": "2017" },
+                    { "key": "threshold", "value": "2" }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"month\": 9,\n    \"year\": 2017,\n    \"threshold\": 2,\n    \"mean\": 12000.5,\n    \"std_dev\": 3200.1,\n    \"anomaly_count\": 2,\n    \"data\": [\n      { \"date\": \"2017-09-15\", \"revenue\": 24500.0, \"order_count\": 20, \"z_score\": 3.9, \"is_anomaly\": true, \"direction\": \"above\" },\n      { \"date\": \"2017-09-20\", \"revenue\": 1800.0, \"order_count\": 2, \"z_score\": -3.2, \"is_anomaly\": true, \"direction\": \"below\" }\n    ]\n  }\n}"
             }
@@ -216,8 +297,16 @@
               "host": ["{{base_url}}"],
               "path": ["api", "product-categories"],
               "query": [
-                { "key": "page", "value": "1", "description": "Halaman (min 1)" },
-                { "key": "limit", "value": "10", "description": "Item per halaman (1-100)" }
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Halaman (min 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Item per halaman (1-100)"
+                }
               ]
             },
             "description": "Response: { data: [...], page, limit, total, total_pages }"
@@ -225,11 +314,20 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/product-categories?page=1&limit=10", "host": ["{{base_url}}"], "path": ["api", "product-categories"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/product-categories?page=1&limit=10",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "product-categories"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"data\": [\n      {\n        \"product_category_name\": \"cama_mesa_banho\",\n        \"product_category_name_english\": \"bed_bath_table\",\n        \"created_by\": 1,\n        \"created_at\": \"2026-01-01T00:00:00.000Z\",\n        \"updated_by\": null,\n        \"updated_at\": null,\n        \"deleted_by\": null,\n        \"deleted_at\": null\n      }\n    ],\n    \"page\": 1,\n    \"limit\": 10,\n    \"total\": 1,\n    \"total_pages\": 1\n  }\n}"
             }
@@ -255,11 +353,23 @@
           "response": [
             {
               "name": "201 Created",
-              "originalRequest": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/product-categories", "host": ["{{base_url}}"], "path": ["api", "product-categories"] } },
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/product-categories",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "product-categories"]
+                }
+              },
               "status": "Created",
               "code": 201,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"product_category_name\": \"cama_mesa_banho\",\n    \"product_category_name_english\": \"bed_bath_table\",\n    \"created_by\": 1\n  }\n}"
             }
@@ -281,21 +391,39 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/product-categories/cama_mesa_banho", "host": ["{{base_url}}"], "path": ["api", "product-categories", "cama_mesa_banho"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/product-categories/cama_mesa_banho",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "product-categories", "cama_mesa_banho"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"product_category_name\": \"cama_mesa_banho\",\n    \"product_category_name_english\": \"bed_bath_table\"\n  }\n}"
             },
             {
               "name": "404 Not Found",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/product-categories/tidak_ada", "host": ["{{base_url}}"], "path": ["api", "product-categories", "tidak_ada"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/product-categories/tidak_ada",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "product-categories", "tidak_ada"]
+                }
+              },
               "status": "Not Found",
               "code": 404,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"message\": \"Product category not found\"\n}"
             }
@@ -322,11 +450,23 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/product-categories/cama_mesa_banho", "host": ["{{base_url}}"], "path": ["api", "product-categories", "cama_mesa_banho"] } },
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/product-categories/cama_mesa_banho",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "product-categories", "cama_mesa_banho"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"product_category_name\": \"cama_mesa_banho\",\n    \"product_category_name_english\": \"bed_bath_and_table\"\n  }\n}"
             }
@@ -347,11 +487,20 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "DELETE", "url": { "raw": "{{base_url}}/api/product-categories/cama_mesa_banho", "host": ["{{base_url}}"], "path": ["api", "product-categories", "cama_mesa_banho"] } },
+              "originalRequest": {
+                "method": "DELETE",
+                "url": {
+                  "raw": "{{base_url}}/api/product-categories/cama_mesa_banho",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "product-categories", "cama_mesa_banho"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"deleted\": true\n}"
             }
@@ -372,8 +521,16 @@
               "host": ["{{base_url}}"],
               "path": ["api", "geolocations"],
               "query": [
-                { "key": "page", "value": "1", "description": "Halaman (min 1)" },
-                { "key": "limit", "value": "10", "description": "Item per halaman (1-100)" }
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Halaman (min 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Item per halaman (1-100)"
+                }
               ]
             },
             "description": "Response: { data: [...], page, limit, total, total_pages }"
@@ -381,11 +538,20 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/geolocations?page=1&limit=10", "host": ["{{base_url}}"], "path": ["api", "geolocations"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/geolocations?page=1&limit=10",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "geolocations"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"data\": [\n      {\n        \"id\": 1,\n        \"geolocation_zip_code_prefix\": \"01151\",\n        \"geolocation_lat\": -23.5505,\n        \"geolocation_lng\": -46.6333,\n        \"geolocation_city\": \"São Paulo\",\n        \"geolocation_state\": \"SP\"\n      }\n    ],\n    \"page\": 1,\n    \"limit\": 10,\n    \"total\": 1,\n    \"total_pages\": 1\n  }\n}"
             }
@@ -410,11 +576,23 @@
           "response": [
             {
               "name": "201 Created",
-              "originalRequest": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/geolocations", "host": ["{{base_url}}"], "path": ["api", "geolocations"] } },
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/geolocations",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "geolocations"]
+                }
+              },
               "status": "Created",
               "code": 201,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"geolocation_zip_code_prefix\": \"01151\",\n    \"geolocation_lat\": -23.5505,\n    \"geolocation_lng\": -46.6333,\n    \"geolocation_city\": \"São Paulo\",\n    \"geolocation_state\": \"SP\"\n  }\n}"
             }
@@ -435,11 +613,20 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/geolocations/1", "host": ["{{base_url}}"], "path": ["api", "geolocations", "1"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/geolocations/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "geolocations", "1"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"geolocation_zip_code_prefix\": \"01151\",\n    \"geolocation_lat\": -23.5505,\n    \"geolocation_lng\": -46.6333,\n    \"geolocation_city\": \"São Paulo\",\n    \"geolocation_state\": \"SP\"\n  }\n}"
             }
@@ -466,11 +653,23 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/geolocations/1", "host": ["{{base_url}}"], "path": ["api", "geolocations", "1"] } },
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/geolocations/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "geolocations", "1"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"geolocation_city\": \"Sao Paulo\"\n  }\n}"
             }
@@ -491,11 +690,20 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "DELETE", "url": { "raw": "{{base_url}}/api/geolocations/1", "host": ["{{base_url}}"], "path": ["api", "geolocations", "1"] } },
+              "originalRequest": {
+                "method": "DELETE",
+                "url": {
+                  "raw": "{{base_url}}/api/geolocations/1",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "geolocations", "1"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"deleted\": true\n}"
             }
@@ -516,8 +724,16 @@
               "host": ["{{base_url}}"],
               "path": ["api", "customers"],
               "query": [
-                { "key": "page", "value": "1", "description": "Halaman (min 1)" },
-                { "key": "limit", "value": "10", "description": "Item per halaman (1-100)" }
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Halaman (min 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Item per halaman (1-100)"
+                }
               ]
             },
             "description": "Response: { data: [...], page, limit, total, total_pages }"
@@ -525,11 +741,20 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/customers?page=1&limit=10", "host": ["{{base_url}}"], "path": ["api", "customers"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/customers?page=1&limit=10",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "customers"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"data\": [\n      {\n        \"customer_id\": \"012e4ae0ff58bcc21b9abfd2b9cb26d1\",\n        \"customer_unique_id\": \"ccf55b4b1e4b5de13cb0ad9b1c1a5c96\",\n        \"customer_zip_code_prefix\": \"06790\",\n        \"customer_city\": \"Itapevi\",\n        \"customer_state\": \"SP\"\n      }\n    ],\n    \"page\": 1,\n    \"limit\": 10,\n    \"total\": 1,\n    \"total_pages\": 1\n  }\n}"
             }
@@ -555,11 +780,23 @@
           "response": [
             {
               "name": "201 Created",
-              "originalRequest": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/customers", "host": ["{{base_url}}"], "path": ["api", "customers"] } },
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/customers",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "customers"]
+                }
+              },
               "status": "Created",
               "code": 201,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"customer_id\": \"012e4ae0ff58bcc21b9abfd2b9cb26d1\",\n    \"customer_unique_id\": \"ccf55b4b1e4b5de13cb0ad9b1c1a5c96\",\n    \"customer_zip_code_prefix\": \"06790\",\n    \"customer_city\": \"Itapevi\",\n    \"customer_state\": \"SP\"\n  }\n}"
             }
@@ -574,17 +811,32 @@
               "raw": "{{base_url}}/api/customers/012e4ae0ff58bcc21b9abfd2b9cb26d1",
               "host": ["{{base_url}}"],
               "path": ["api", "customers", "012e4ae0ff58bcc21b9abfd2b9cb26d1"],
-              "variable": [{ "key": "id", "value": "012e4ae0ff58bcc21b9abfd2b9cb26d1" }]
+              "variable": [
+                { "key": "id", "value": "012e4ae0ff58bcc21b9abfd2b9cb26d1" }
+              ]
             }
           },
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/customers/012e4ae0ff58bcc21b9abfd2b9cb26d1", "host": ["{{base_url}}"], "path": ["api", "customers", "012e4ae0ff58bcc21b9abfd2b9cb26d1"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/customers/012e4ae0ff58bcc21b9abfd2b9cb26d1",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "api",
+                    "customers",
+                    "012e4ae0ff58bcc21b9abfd2b9cb26d1"
+                  ]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"customer_id\": \"012e4ae0ff58bcc21b9abfd2b9cb26d1\",\n    \"customer_zip_code_prefix\": \"06790\",\n    \"customer_city\": \"Itapevi\",\n    \"customer_state\": \"SP\"\n  }\n}"
             }
@@ -604,18 +856,36 @@
               "raw": "{{base_url}}/api/customers/012e4ae0ff58bcc21b9abfd2b9cb26d1",
               "host": ["{{base_url}}"],
               "path": ["api", "customers", "012e4ae0ff58bcc21b9abfd2b9cb26d1"],
-              "variable": [{ "key": "id", "value": "012e4ae0ff58bcc21b9abfd2b9cb26d1" }]
+              "variable": [
+                { "key": "id", "value": "012e4ae0ff58bcc21b9abfd2b9cb26d1" }
+              ]
             },
             "description": "Partial update — kirim hanya field yang ingin diubah"
           },
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/customers/012e4ae0ff58bcc21b9abfd2b9cb26d1", "host": ["{{base_url}}"], "path": ["api", "customers", "012e4ae0ff58bcc21b9abfd2b9cb26d1"] } },
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/customers/012e4ae0ff58bcc21b9abfd2b9cb26d1",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "api",
+                    "customers",
+                    "012e4ae0ff58bcc21b9abfd2b9cb26d1"
+                  ]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"customer_id\": \"012e4ae0ff58bcc21b9abfd2b9cb26d1\",\n    \"customer_city\": \"Barueri\"\n  }\n}"
             }
@@ -630,17 +900,32 @@
               "raw": "{{base_url}}/api/customers/012e4ae0ff58bcc21b9abfd2b9cb26d1",
               "host": ["{{base_url}}"],
               "path": ["api", "customers", "012e4ae0ff58bcc21b9abfd2b9cb26d1"],
-              "variable": [{ "key": "id", "value": "012e4ae0ff58bcc21b9abfd2b9cb26d1" }]
+              "variable": [
+                { "key": "id", "value": "012e4ae0ff58bcc21b9abfd2b9cb26d1" }
+              ]
             }
           },
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "DELETE", "url": { "raw": "{{base_url}}/api/customers/012e4ae0ff58bcc21b9abfd2b9cb26d1", "host": ["{{base_url}}"], "path": ["api", "customers", "012e4ae0ff58bcc21b9abfd2b9cb26d1"] } },
+              "originalRequest": {
+                "method": "DELETE",
+                "url": {
+                  "raw": "{{base_url}}/api/customers/012e4ae0ff58bcc21b9abfd2b9cb26d1",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "api",
+                    "customers",
+                    "012e4ae0ff58bcc21b9abfd2b9cb26d1"
+                  ]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"deleted\": true\n}"
             }
@@ -661,8 +946,16 @@
               "host": ["{{base_url}}"],
               "path": ["api", "sellers"],
               "query": [
-                { "key": "page", "value": "1", "description": "Halaman (min 1)" },
-                { "key": "limit", "value": "10", "description": "Item per halaman (1-100)" }
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Halaman (min 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Item per halaman (1-100)"
+                }
               ]
             },
             "description": "Response: { data: [...], page, limit, total, total_pages }"
@@ -670,11 +963,20 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/sellers?page=1&limit=10", "host": ["{{base_url}}"], "path": ["api", "sellers"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/sellers?page=1&limit=10",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "sellers"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"data\": [\n      {\n        \"seller_id\": \"1f50f920adfa962d6b961f4a3b6b0dcd\",\n        \"seller_zip_code_prefix\": \"13301\",\n        \"seller_city\": \"Itu\",\n        \"seller_state\": \"SP\"\n      }\n    ],\n    \"page\": 1,\n    \"limit\": 10,\n    \"total\": 1,\n    \"total_pages\": 1\n  }\n}"
             }
@@ -700,11 +1002,23 @@
           "response": [
             {
               "name": "201 Created",
-              "originalRequest": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/sellers", "host": ["{{base_url}}"], "path": ["api", "sellers"] } },
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/sellers",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "sellers"]
+                }
+              },
               "status": "Created",
               "code": 201,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"seller_id\": \"1f50f920adfa962d6b961f4a3b6b0dcd\",\n    \"seller_zip_code_prefix\": \"13301\",\n    \"seller_city\": \"Itu\",\n    \"seller_state\": \"SP\"\n  }\n}"
             }
@@ -719,17 +1033,28 @@
               "raw": "{{base_url}}/api/sellers/1f50f920adfa962d6b961f4a3b6b0dcd",
               "host": ["{{base_url}}"],
               "path": ["api", "sellers", "1f50f920adfa962d6b961f4a3b6b0dcd"],
-              "variable": [{ "key": "id", "value": "1f50f920adfa962d6b961f4a3b6b0dcd" }]
+              "variable": [
+                { "key": "id", "value": "1f50f920adfa962d6b961f4a3b6b0dcd" }
+              ]
             }
           },
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/sellers/1f50f920adfa962d6b961f4a3b6b0dcd", "host": ["{{base_url}}"], "path": ["api", "sellers", "1f50f920adfa962d6b961f4a3b6b0dcd"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/sellers/1f50f920adfa962d6b961f4a3b6b0dcd",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "sellers", "1f50f920adfa962d6b961f4a3b6b0dcd"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"seller_id\": \"1f50f920adfa962d6b961f4a3b6b0dcd\",\n    \"seller_zip_code_prefix\": \"13301\",\n    \"seller_city\": \"Itu\",\n    \"seller_state\": \"SP\"\n  }\n}"
             }
@@ -749,18 +1074,32 @@
               "raw": "{{base_url}}/api/sellers/1f50f920adfa962d6b961f4a3b6b0dcd",
               "host": ["{{base_url}}"],
               "path": ["api", "sellers", "1f50f920adfa962d6b961f4a3b6b0dcd"],
-              "variable": [{ "key": "id", "value": "1f50f920adfa962d6b961f4a3b6b0dcd" }]
+              "variable": [
+                { "key": "id", "value": "1f50f920adfa962d6b961f4a3b6b0dcd" }
+              ]
             },
             "description": "Partial update — kirim hanya field yang ingin diubah"
           },
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/sellers/1f50f920adfa962d6b961f4a3b6b0dcd", "host": ["{{base_url}}"], "path": ["api", "sellers", "1f50f920adfa962d6b961f4a3b6b0dcd"] } },
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/sellers/1f50f920adfa962d6b961f4a3b6b0dcd",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "sellers", "1f50f920adfa962d6b961f4a3b6b0dcd"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"seller_id\": \"1f50f920adfa962d6b961f4a3b6b0dcd\",\n    \"seller_city\": \"Sorocaba\"\n  }\n}"
             }
@@ -775,17 +1114,28 @@
               "raw": "{{base_url}}/api/sellers/1f50f920adfa962d6b961f4a3b6b0dcd",
               "host": ["{{base_url}}"],
               "path": ["api", "sellers", "1f50f920adfa962d6b961f4a3b6b0dcd"],
-              "variable": [{ "key": "id", "value": "1f50f920adfa962d6b961f4a3b6b0dcd" }]
+              "variable": [
+                { "key": "id", "value": "1f50f920adfa962d6b961f4a3b6b0dcd" }
+              ]
             }
           },
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "DELETE", "url": { "raw": "{{base_url}}/api/sellers/1f50f920adfa962d6b961f4a3b6b0dcd", "host": ["{{base_url}}"], "path": ["api", "sellers", "1f50f920adfa962d6b961f4a3b6b0dcd"] } },
+              "originalRequest": {
+                "method": "DELETE",
+                "url": {
+                  "raw": "{{base_url}}/api/sellers/1f50f920adfa962d6b961f4a3b6b0dcd",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "sellers", "1f50f920adfa962d6b961f4a3b6b0dcd"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"deleted\": true\n}"
             }
@@ -806,8 +1156,16 @@
               "host": ["{{base_url}}"],
               "path": ["api", "products"],
               "query": [
-                { "key": "page", "value": "1", "description": "Halaman (min 1)" },
-                { "key": "limit", "value": "10", "description": "Item per halaman (1-100)" }
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Halaman (min 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Item per halaman (1-100)"
+                }
               ]
             },
             "description": "Response: { data: [...], page, limit, total, total_pages }"
@@ -815,11 +1173,20 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/products?page=1&limit=10", "host": ["{{base_url}}"], "path": ["api", "products"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/products?page=1&limit=10",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "products"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"data\": [\n      {\n        \"product_id\": \"1e9eac17ae918a8fad15f1a6a0b1a3c5\",\n        \"product_category_name\": \"cama_mesa_banho\",\n        \"product_name_lenght\": 40,\n        \"product_description_lenght\": 250,\n        \"product_photos_qty\": 2,\n        \"product_weight_g\": 1200,\n        \"product_length_cm\": 30,\n        \"product_height_cm\": 15,\n        \"product_width_cm\": 25\n      }\n    ],\n    \"page\": 1,\n    \"limit\": 10,\n    \"total\": 1,\n    \"total_pages\": 1\n  }\n}"
             }
@@ -845,11 +1212,23 @@
           "response": [
             {
               "name": "201 Created",
-              "originalRequest": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/products", "host": ["{{base_url}}"], "path": ["api", "products"] } },
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "products"]
+                }
+              },
               "status": "Created",
               "code": 201,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"product_id\": \"1e9eac17ae918a8fad15f1a6a0b1a3c5\",\n    \"product_category_name\": \"cama_mesa_banho\",\n    \"product_weight_g\": 1200,\n    \"created_by\": 1\n  }\n}"
             }
@@ -864,17 +1243,32 @@
               "raw": "{{base_url}}/api/products/1e9eac17ae918a8fad15f1a6a0b1a3c5",
               "host": ["{{base_url}}"],
               "path": ["api", "products", "1e9eac17ae918a8fad15f1a6a0b1a3c5"],
-              "variable": [{ "key": "id", "value": "1e9eac17ae918a8fad15f1a6a0b1a3c5" }]
+              "variable": [
+                { "key": "id", "value": "1e9eac17ae918a8fad15f1a6a0b1a3c5" }
+              ]
             }
           },
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/products/1e9eac17ae918a8fad15f1a6a0b1a3c5", "host": ["{{base_url}}"], "path": ["api", "products", "1e9eac17ae918a8fad15f1a6a0b1a3c5"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/products/1e9eac17ae918a8fad15f1a6a0b1a3c5",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "api",
+                    "products",
+                    "1e9eac17ae918a8fad15f1a6a0b1a3c5"
+                  ]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"product_id\": \"1e9eac17ae918a8fad15f1a6a0b1a3c5\",\n    \"product_category_name\": \"cama_mesa_banho\",\n    \"product_weight_g\": 1200\n  }\n}"
             }
@@ -894,18 +1288,36 @@
               "raw": "{{base_url}}/api/products/1e9eac17ae918a8fad15f1a6a0b1a3c5",
               "host": ["{{base_url}}"],
               "path": ["api", "products", "1e9eac17ae918a8fad15f1a6a0b1a3c5"],
-              "variable": [{ "key": "id", "value": "1e9eac17ae918a8fad15f1a6a0b1a3c5" }]
+              "variable": [
+                { "key": "id", "value": "1e9eac17ae918a8fad15f1a6a0b1a3c5" }
+              ]
             },
             "description": "Partial update — kirim hanya field yang ingin diubah"
           },
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/products/1e9eac17ae918a8fad15f1a6a0b1a3c5", "host": ["{{base_url}}"], "path": ["api", "products", "1e9eac17ae918a8fad15f1a6a0b1a3c5"] } },
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/products/1e9eac17ae918a8fad15f1a6a0b1a3c5",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "api",
+                    "products",
+                    "1e9eac17ae918a8fad15f1a6a0b1a3c5"
+                  ]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"product_id\": \"1e9eac17ae918a8fad15f1a6a0b1a3c5\",\n    \"product_weight_g\": 1500,\n    \"product_photos_qty\": 3\n  }\n}"
             }
@@ -920,17 +1332,32 @@
               "raw": "{{base_url}}/api/products/1e9eac17ae918a8fad15f1a6a0b1a3c5",
               "host": ["{{base_url}}"],
               "path": ["api", "products", "1e9eac17ae918a8fad15f1a6a0b1a3c5"],
-              "variable": [{ "key": "id", "value": "1e9eac17ae918a8fad15f1a6a0b1a3c5" }]
+              "variable": [
+                { "key": "id", "value": "1e9eac17ae918a8fad15f1a6a0b1a3c5" }
+              ]
             }
           },
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "DELETE", "url": { "raw": "{{base_url}}/api/products/1e9eac17ae918a8fad15f1a6a0b1a3c5", "host": ["{{base_url}}"], "path": ["api", "products", "1e9eac17ae918a8fad15f1a6a0b1a3c5"] } },
+              "originalRequest": {
+                "method": "DELETE",
+                "url": {
+                  "raw": "{{base_url}}/api/products/1e9eac17ae918a8fad15f1a6a0b1a3c5",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "api",
+                    "products",
+                    "1e9eac17ae918a8fad15f1a6a0b1a3c5"
+                  ]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"deleted\": true\n}"
             }
@@ -951,8 +1378,16 @@
               "host": ["{{base_url}}"],
               "path": ["api", "orders"],
               "query": [
-                { "key": "page", "value": "1", "description": "Halaman (min 1)" },
-                { "key": "limit", "value": "10", "description": "Item per halaman (1-100)" }
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Halaman (min 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Item per halaman (1-100)"
+                }
               ]
             },
             "description": "Response: { data: [...], page, limit, total, total_pages }"
@@ -960,11 +1395,20 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/orders?page=1&limit=10", "host": ["{{base_url}}"], "path": ["api", "orders"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/orders?page=1&limit=10",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "orders"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"data\": [\n      {\n        \"order_id\": \"e481f37cbcc27c866c2be5c6e0b1e0cb\",\n        \"customer_id\": \"012e4ae0ff58bcc21b9abfd2b9cb26d1\",\n        \"order_status\": \"created\",\n        \"order_purchase_timestamp\": \"2017-09-15T10:56:33.000Z\",\n        \"order_approved_at\": null,\n        \"order_delivered_carrier_date\": null,\n        \"order_delivered_customer_date\": null,\n        \"order_estimated_delivery_date\": \"2017-09-30T00:00:00.000Z\"\n      }\n    ],\n    \"page\": 1,\n    \"limit\": 10,\n    \"total\": 1,\n    \"total_pages\": 1\n  }\n}"
             }
@@ -990,11 +1434,23 @@
           "response": [
             {
               "name": "201 Created",
-              "originalRequest": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/orders", "host": ["{{base_url}}"], "path": ["api", "orders"] } },
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/orders",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "orders"]
+                }
+              },
               "status": "Created",
               "code": 201,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"order_id\": \"e481f37cbcc27c866c2be5c6e0b1e0cb\",\n    \"customer_id\": \"012e4ae0ff58bcc21b9abfd2b9cb26d1\",\n    \"order_status\": \"created\"\n  }\n}"
             }
@@ -1009,17 +1465,28 @@
               "raw": "{{base_url}}/api/orders/e481f37cbcc27c866c2be5c6e0b1e0cb",
               "host": ["{{base_url}}"],
               "path": ["api", "orders", "e481f37cbcc27c866c2be5c6e0b1e0cb"],
-              "variable": [{ "key": "id", "value": "e481f37cbcc27c866c2be5c6e0b1e0cb" }]
+              "variable": [
+                { "key": "id", "value": "e481f37cbcc27c866c2be5c6e0b1e0cb" }
+              ]
             }
           },
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/orders/e481f37cbcc27c866c2be5c6e0b1e0cb", "host": ["{{base_url}}"], "path": ["api", "orders", "e481f37cbcc27c866c2be5c6e0b1e0cb"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/orders/e481f37cbcc27c866c2be5c6e0b1e0cb",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "orders", "e481f37cbcc27c866c2be5c6e0b1e0cb"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"order_id\": \"e481f37cbcc27c866c2be5c6e0b1e0cb\",\n    \"customer_id\": \"012e4ae0ff58bcc21b9abfd2b9cb26d1\",\n    \"order_status\": \"approved\"\n  }\n}"
             }
@@ -1039,18 +1506,32 @@
               "raw": "{{base_url}}/api/orders/e481f37cbcc27c866c2be5c6e0b1e0cb",
               "host": ["{{base_url}}"],
               "path": ["api", "orders", "e481f37cbcc27c866c2be5c6e0b1e0cb"],
-              "variable": [{ "key": "id", "value": "e481f37cbcc27c866c2be5c6e0b1e0cb" }]
+              "variable": [
+                { "key": "id", "value": "e481f37cbcc27c866c2be5c6e0b1e0cb" }
+              ]
             },
             "description": "Partial update — kirim hanya field yang ingin diubah"
           },
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/orders/e481f37cbcc27c866c2be5c6e0b1e0cb", "host": ["{{base_url}}"], "path": ["api", "orders", "e481f37cbcc27c866c2be5c6e0b1e0cb"] } },
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/orders/e481f37cbcc27c866c2be5c6e0b1e0cb",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "orders", "e481f37cbcc27c866c2be5c6e0b1e0cb"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"order_id\": \"e481f37cbcc27c866c2be5c6e0b1e0cb\",\n    \"order_status\": \"approved\",\n    \"order_approved_at\": \"2017-09-15T12:00:00.000Z\"\n  }\n}"
             }
@@ -1065,17 +1546,28 @@
               "raw": "{{base_url}}/api/orders/e481f37cbcc27c866c2be5c6e0b1e0cb",
               "host": ["{{base_url}}"],
               "path": ["api", "orders", "e481f37cbcc27c866c2be5c6e0b1e0cb"],
-              "variable": [{ "key": "id", "value": "e481f37cbcc27c866c2be5c6e0b1e0cb" }]
+              "variable": [
+                { "key": "id", "value": "e481f37cbcc27c866c2be5c6e0b1e0cb" }
+              ]
             }
           },
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "DELETE", "url": { "raw": "{{base_url}}/api/orders/e481f37cbcc27c866c2be5c6e0b1e0cb", "host": ["{{base_url}}"], "path": ["api", "orders", "e481f37cbcc27c866c2be5c6e0b1e0cb"] } },
+              "originalRequest": {
+                "method": "DELETE",
+                "url": {
+                  "raw": "{{base_url}}/api/orders/e481f37cbcc27c866c2be5c6e0b1e0cb",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "orders", "e481f37cbcc27c866c2be5c6e0b1e0cb"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"deleted\": true\n}"
             }
@@ -1096,8 +1588,16 @@
               "host": ["{{base_url}}"],
               "path": ["api", "order-items"],
               "query": [
-                { "key": "page", "value": "1", "description": "Halaman (min 1)" },
-                { "key": "limit", "value": "10", "description": "Item per halaman (1-100)" }
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Halaman (min 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Item per halaman (1-100)"
+                }
               ]
             },
             "description": "Response: { data: [...], page, limit, total, total_pages }"
@@ -1105,11 +1605,20 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/order-items?page=1&limit=10", "host": ["{{base_url}}"], "path": ["api", "order-items"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/order-items?page=1&limit=10",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "order-items"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"data\": [\n      {\n        \"order_id\": \"e481f37cbcc27c866c2be5c6e0b1e0cb\",\n        \"order_item_id\": 1,\n        \"product_id\": \"1e9eac17ae918a8fad15f1a6a0b1a3c5\",\n        \"seller_id\": \"1f50f920adfa962d6b961f4a3b6b0dcd\",\n        \"shipping_limit_date\": \"2017-09-20T00:00:00.000Z\",\n        \"price\": 89.9,\n        \"freight_value\": 12.5\n      }\n    ],\n    \"page\": 1,\n    \"limit\": 10,\n    \"total\": 1,\n    \"total_pages\": 1\n  }\n}"
             }
@@ -1135,11 +1644,23 @@
           "response": [
             {
               "name": "201 Created",
-              "originalRequest": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/order-items", "host": ["{{base_url}}"], "path": ["api", "order-items"] } },
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/order-items",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "order-items"]
+                }
+              },
               "status": "Created",
               "code": 201,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"order_id\": \"e481f37cbcc27c866c2be5c6e0b1e0cb\",\n    \"order_item_id\": 1,\n    \"product_id\": \"1e9eac17ae918a8fad15f1a6a0b1a3c5\",\n    \"seller_id\": \"1f50f920adfa962d6b961f4a3b6b0dcd\",\n    \"shipping_limit_date\": \"2017-09-20T00:00:00.000Z\",\n    \"price\": 89.9,\n    \"freight_value\": 12.5\n  }\n}"
             }
@@ -1155,7 +1676,10 @@
               "host": ["{{base_url}}"],
               "path": ["api", "order-items", ":order_id", ":order_item_id"],
               "variable": [
-                { "key": "order_id", "value": "e481f37cbcc27c866c2be5c6e0b1e0cb" },
+                {
+                  "key": "order_id",
+                  "value": "e481f37cbcc27c866c2be5c6e0b1e0cb"
+                },
                 { "key": "order_item_id", "value": "1" }
               ]
             }
@@ -1163,11 +1687,25 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/order-items/e481f37cbcc27c866c2be5c6e0b1e0cb/1", "host": ["{{base_url}}"], "path": ["api", "order-items", "e481f37cbcc27c866c2be5c6e0b1e0cb", "1"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/order-items/e481f37cbcc27c866c2be5c6e0b1e0cb/1",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "api",
+                    "order-items",
+                    "e481f37cbcc27c866c2be5c6e0b1e0cb",
+                    "1"
+                  ]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"order_id\": \"e481f37cbcc27c866c2be5c6e0b1e0cb\",\n    \"order_item_id\": 1,\n    \"price\": 89.9,\n    \"freight_value\": 12.5\n  }\n}"
             }
@@ -1188,7 +1726,10 @@
               "host": ["{{base_url}}"],
               "path": ["api", "order-items", ":order_id", ":order_item_id"],
               "variable": [
-                { "key": "order_id", "value": "e481f37cbcc27c866c2be5c6e0b1e0cb" },
+                {
+                  "key": "order_id",
+                  "value": "e481f37cbcc27c866c2be5c6e0b1e0cb"
+                },
                 { "key": "order_item_id", "value": "1" }
               ]
             },
@@ -1197,11 +1738,28 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/order-items/e481f37cbcc27c866c2be5c6e0b1e0cb/1", "host": ["{{base_url}}"], "path": ["api", "order-items", "e481f37cbcc27c866c2be5c6e0b1e0cb", "1"] } },
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/order-items/e481f37cbcc27c866c2be5c6e0b1e0cb/1",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "api",
+                    "order-items",
+                    "e481f37cbcc27c866c2be5c6e0b1e0cb",
+                    "1"
+                  ]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"order_id\": \"e481f37cbcc27c866c2be5c6e0b1e0cb\",\n    \"order_item_id\": 1,\n    \"price\": 99.9,\n    \"freight_value\": 15.0\n  }\n}"
             }
@@ -1217,7 +1775,10 @@
               "host": ["{{base_url}}"],
               "path": ["api", "order-items", ":order_id", ":order_item_id"],
               "variable": [
-                { "key": "order_id", "value": "e481f37cbcc27c866c2be5c6e0b1e0cb" },
+                {
+                  "key": "order_id",
+                  "value": "e481f37cbcc27c866c2be5c6e0b1e0cb"
+                },
                 { "key": "order_item_id", "value": "1" }
               ]
             }
@@ -1225,11 +1786,25 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "DELETE", "url": { "raw": "{{base_url}}/api/order-items/e481f37cbcc27c866c2be5c6e0b1e0cb/1", "host": ["{{base_url}}"], "path": ["api", "order-items", "e481f37cbcc27c866c2be5c6e0b1e0cb", "1"] } },
+              "originalRequest": {
+                "method": "DELETE",
+                "url": {
+                  "raw": "{{base_url}}/api/order-items/e481f37cbcc27c866c2be5c6e0b1e0cb/1",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "api",
+                    "order-items",
+                    "e481f37cbcc27c866c2be5c6e0b1e0cb",
+                    "1"
+                  ]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"deleted\": true\n}"
             }
@@ -1250,8 +1825,16 @@
               "host": ["{{base_url}}"],
               "path": ["api", "order-payments"],
               "query": [
-                { "key": "page", "value": "1", "description": "Halaman (min 1)" },
-                { "key": "limit", "value": "10", "description": "Item per halaman (1-100)" }
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Halaman (min 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Item per halaman (1-100)"
+                }
               ]
             },
             "description": "Response: { data: [...], page, limit, total, total_pages }"
@@ -1259,11 +1842,20 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/order-payments?page=1&limit=10", "host": ["{{base_url}}"], "path": ["api", "order-payments"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/order-payments?page=1&limit=10",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "order-payments"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"data\": [\n      {\n        \"order_id\": \"e481f37cbcc27c866c2be5c6e0b1e0cb\",\n        \"payment_sequential\": 1,\n        \"payment_type\": \"credit_card\",\n        \"payment_installments\": 3,\n        \"payment_value\": 102.4\n      }\n    ],\n    \"page\": 1,\n    \"limit\": 10,\n    \"total\": 1,\n    \"total_pages\": 1\n  }\n}"
             }
@@ -1289,11 +1881,23 @@
           "response": [
             {
               "name": "201 Created",
-              "originalRequest": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/order-payments", "host": ["{{base_url}}"], "path": ["api", "order-payments"] } },
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/order-payments",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "order-payments"]
+                }
+              },
               "status": "Created",
               "code": 201,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"order_id\": \"e481f37cbcc27c866c2be5c6e0b1e0cb\",\n    \"payment_sequential\": 1,\n    \"payment_type\": \"credit_card\",\n    \"payment_installments\": 3,\n    \"payment_value\": 102.4\n  }\n}"
             }
@@ -1307,9 +1911,17 @@
             "url": {
               "raw": "{{base_url}}/api/order-payments/:order_id/:payment_sequential",
               "host": ["{{base_url}}"],
-              "path": ["api", "order-payments", ":order_id", ":payment_sequential"],
+              "path": [
+                "api",
+                "order-payments",
+                ":order_id",
+                ":payment_sequential"
+              ],
               "variable": [
-                { "key": "order_id", "value": "e481f37cbcc27c866c2be5c6e0b1e0cb" },
+                {
+                  "key": "order_id",
+                  "value": "e481f37cbcc27c866c2be5c6e0b1e0cb"
+                },
                 { "key": "payment_sequential", "value": "1" }
               ]
             }
@@ -1317,11 +1929,25 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/order-payments/e481f37cbcc27c866c2be5c6e0b1e0cb/1", "host": ["{{base_url}}"], "path": ["api", "order-payments", "e481f37cbcc27c866c2be5c6e0b1e0cb", "1"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/order-payments/e481f37cbcc27c866c2be5c6e0b1e0cb/1",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "api",
+                    "order-payments",
+                    "e481f37cbcc27c866c2be5c6e0b1e0cb",
+                    "1"
+                  ]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"order_id\": \"e481f37cbcc27c866c2be5c6e0b1e0cb\",\n    \"payment_sequential\": 1,\n    \"payment_type\": \"credit_card\",\n    \"payment_installments\": 3,\n    \"payment_value\": 102.4\n  }\n}"
             }
@@ -1340,9 +1966,17 @@
             "url": {
               "raw": "{{base_url}}/api/order-payments/:order_id/:payment_sequential",
               "host": ["{{base_url}}"],
-              "path": ["api", "order-payments", ":order_id", ":payment_sequential"],
+              "path": [
+                "api",
+                "order-payments",
+                ":order_id",
+                ":payment_sequential"
+              ],
               "variable": [
-                { "key": "order_id", "value": "e481f37cbcc27c866c2be5c6e0b1e0cb" },
+                {
+                  "key": "order_id",
+                  "value": "e481f37cbcc27c866c2be5c6e0b1e0cb"
+                },
                 { "key": "payment_sequential", "value": "1" }
               ]
             },
@@ -1351,11 +1985,28 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/order-payments/e481f37cbcc27c866c2be5c6e0b1e0cb/1", "host": ["{{base_url}}"], "path": ["api", "order-payments", "e481f37cbcc27c866c2be5c6e0b1e0cb", "1"] } },
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/order-payments/e481f37cbcc27c866c2be5c6e0b1e0cb/1",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "api",
+                    "order-payments",
+                    "e481f37cbcc27c866c2be5c6e0b1e0cb",
+                    "1"
+                  ]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"order_id\": \"e481f37cbcc27c866c2be5c6e0b1e0cb\",\n    \"payment_sequential\": 1,\n    \"payment_type\": \"credit_card\",\n    \"payment_installments\": 1,\n    \"payment_value\": 112.4\n  }\n}"
             }
@@ -1369,9 +2020,17 @@
             "url": {
               "raw": "{{base_url}}/api/order-payments/:order_id/:payment_sequential",
               "host": ["{{base_url}}"],
-              "path": ["api", "order-payments", ":order_id", ":payment_sequential"],
+              "path": [
+                "api",
+                "order-payments",
+                ":order_id",
+                ":payment_sequential"
+              ],
               "variable": [
-                { "key": "order_id", "value": "e481f37cbcc27c866c2be5c6e0b1e0cb" },
+                {
+                  "key": "order_id",
+                  "value": "e481f37cbcc27c866c2be5c6e0b1e0cb"
+                },
                 { "key": "payment_sequential", "value": "1" }
               ]
             }
@@ -1379,11 +2038,25 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "DELETE", "url": { "raw": "{{base_url}}/api/order-payments/e481f37cbcc27c866c2be5c6e0b1e0cb/1", "host": ["{{base_url}}"], "path": ["api", "order-payments", "e481f37cbcc27c866c2be5c6e0b1e0cb", "1"] } },
+              "originalRequest": {
+                "method": "DELETE",
+                "url": {
+                  "raw": "{{base_url}}/api/order-payments/e481f37cbcc27c866c2be5c6e0b1e0cb/1",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "api",
+                    "order-payments",
+                    "e481f37cbcc27c866c2be5c6e0b1e0cb",
+                    "1"
+                  ]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"deleted\": true\n}"
             }
@@ -1404,8 +2077,16 @@
               "host": ["{{base_url}}"],
               "path": ["api", "order-reviews"],
               "query": [
-                { "key": "page", "value": "1", "description": "Halaman (min 1)" },
-                { "key": "limit", "value": "10", "description": "Item per halaman (1-100)" }
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Halaman (min 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Item per halaman (1-100)"
+                }
               ]
             },
             "description": "Response: { data: [...], page, limit, total, total_pages }"
@@ -1413,11 +2094,20 @@
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/order-reviews?page=1&limit=10", "host": ["{{base_url}}"], "path": ["api", "order-reviews"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/order-reviews?page=1&limit=10",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "order-reviews"]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"data\": [\n      {\n        \"review_id\": \"3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d\",\n        \"order_id\": \"e481f37cbcc27c866c2be5c6e0b1e0cb\",\n        \"review_score\": 5,\n        \"review_comment_title\": \"Recomendado\",\n        \"review_comment_message\": \"Produto chegou antes do prazo, muito bom!\",\n        \"review_creation_date\": \"2017-10-05T00:00:00.000Z\",\n        \"review_answer_timestamp\": \"2017-10-06T00:00:00.000Z\"\n      }\n    ],\n    \"page\": 1,\n    \"limit\": 10,\n    \"total\": 1,\n    \"total_pages\": 1\n  }\n}"
             }
@@ -1443,11 +2133,23 @@
           "response": [
             {
               "name": "201 Created",
-              "originalRequest": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/order-reviews", "host": ["{{base_url}}"], "path": ["api", "order-reviews"] } },
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/order-reviews",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "order-reviews"]
+                }
+              },
               "status": "Created",
               "code": 201,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"review_id\": \"3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d\",\n    \"order_id\": \"e481f37cbcc27c866c2be5c6e0b1e0cb\",\n    \"review_score\": 5\n  }\n}"
             }
@@ -1461,18 +2163,37 @@
             "url": {
               "raw": "{{base_url}}/api/order-reviews/3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d",
               "host": ["{{base_url}}"],
-              "path": ["api", "order-reviews", "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d"],
-              "variable": [{ "key": "id", "value": "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d" }]
+              "path": [
+                "api",
+                "order-reviews",
+                "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d"
+              ],
+              "variable": [
+                { "key": "id", "value": "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d" }
+              ]
             }
           },
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "GET", "url": { "raw": "{{base_url}}/api/order-reviews/3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d", "host": ["{{base_url}}"], "path": ["api", "order-reviews", "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d"] } },
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/order-reviews/3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "api",
+                    "order-reviews",
+                    "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d"
+                  ]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"review_id\": \"3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d\",\n    \"order_id\": \"e481f37cbcc27c866c2be5c6e0b1e0cb\",\n    \"review_score\": 5\n  }\n}"
             }
@@ -1491,19 +2212,41 @@
             "url": {
               "raw": "{{base_url}}/api/order-reviews/3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d",
               "host": ["{{base_url}}"],
-              "path": ["api", "order-reviews", "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d"],
-              "variable": [{ "key": "id", "value": "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d" }]
+              "path": [
+                "api",
+                "order-reviews",
+                "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d"
+              ],
+              "variable": [
+                { "key": "id", "value": "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d" }
+              ]
             },
             "description": "Partial update — kirim hanya field yang ingin diubah"
           },
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "url": { "raw": "{{base_url}}/api/order-reviews/3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d", "host": ["{{base_url}}"], "path": ["api", "order-reviews", "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d"] } },
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  { "key": "Content-Type", "value": "application/json" }
+                ],
+                "url": {
+                  "raw": "{{base_url}}/api/order-reviews/3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "api",
+                    "order-reviews",
+                    "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d"
+                  ]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"data\": {\n    \"review_id\": \"3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d\",\n    \"review_score\": 4\n  }\n}"
             }
@@ -1517,18 +2260,37 @@
             "url": {
               "raw": "{{base_url}}/api/order-reviews/3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d",
               "host": ["{{base_url}}"],
-              "path": ["api", "order-reviews", "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d"],
-              "variable": [{ "key": "id", "value": "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d" }]
+              "path": [
+                "api",
+                "order-reviews",
+                "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d"
+              ],
+              "variable": [
+                { "key": "id", "value": "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d" }
+              ]
             }
           },
           "response": [
             {
               "name": "200 OK",
-              "originalRequest": { "method": "DELETE", "url": { "raw": "{{base_url}}/api/order-reviews/3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d", "host": ["{{base_url}}"], "path": ["api", "order-reviews", "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d"] } },
+              "originalRequest": {
+                "method": "DELETE",
+                "url": {
+                  "raw": "{{base_url}}/api/order-reviews/3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d",
+                  "host": ["{{base_url}}"],
+                  "path": [
+                    "api",
+                    "order-reviews",
+                    "3a2b1c0d9e8f7a6b5c4d3e2f1a0b9c8d"
+                  ]
+                }
+              },
               "status": "OK",
               "code": 200,
               "_postman_previewlanguage": "json",
-              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
               "cookie": [],
               "body": "{\n  \"deleted\": true\n}"
             }

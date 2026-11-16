@@ -14,7 +14,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-test_be}"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-test_be}",
+        ]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -34,7 +38,7 @@ services:
       PGDATABASE: ${POSTGRES_DB:-test_be}
       DB_DUMP: ${DB_DUMP:-true}
     volumes:
-      - ./template-express:/dump:ro
+      - ./backend:/dump:ro
     entrypoint:
       - /bin/sh
       - -ce
@@ -57,14 +61,14 @@ services:
           echo "[db-dump] Menggunakan /dump/olist_dump.sql.gz..."
           gunzip -c /dump/olist_dump.sql.gz | psql -v ON_ERROR_STOP=1
         else
-          echo "[db-dump] ERROR: olist_dump.sql atau olist_dump.sql.gz tidak ditemukan di template-express/"
+          echo "[db-dump] ERROR: olist_dump.sql atau olist_dump.sql.gz tidak ditemukan di backend/"
           exit 1
         fi
         psql -c "CREATE TABLE public._olist_dump_loaded (loaded_at timestamptz DEFAULT now());"
         echo "[db-dump] import selesai."
 
   api:
-    build: ./template-express
+    build: ./backend
     container_name: netcom-api
     restart: always
     ports:
@@ -81,7 +85,7 @@ services:
         condition: service_completed_successfully
 
   web:
-    build: ./netcom
+    build: ./frontend
     container_name: netcom-web
     restart: always
     ports:

@@ -12,8 +12,7 @@ function loadEnv(file) {
       if (eq === -1) continue;
       env[trimmed.slice(0, eq).trim()] = trimmed.slice(eq + 1).trim();
     }
-  } catch {
-  }
+  } catch {}
   return env;
 }
 

@@ -13,4 +13,4 @@ dist/
 *.log
 npm-debug.log*
 
-template-express/olist_dump.sql
+backend/olist_dump.sql
