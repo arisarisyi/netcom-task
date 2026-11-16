@@ -21,6 +21,7 @@ const allRoles = authorizeRole("customers", "sellers")
 
 apiSecured.get("/api/revenues/daily", sellerAccess, RevenueController.dailyRevenue)
 apiSecured.get("/api/revenues/anomalies", sellerAccess, RevenueController.dailyRevenueAnomalies)
+apiSecured.get("/api/revenues/anomalies/yearly", sellerAccess, RevenueController.monthlyRevenueAnomalies)
 
 apiSecured.get("/api/product-categories", allRoles, ProductCategoryTranslationController.list)
 apiSecured.post("/api/product-categories", adminOnly, ProductCategoryTranslationController.create)

@@ -185,6 +185,47 @@
         }
       </article>
 
+      <article class="widget span-yearly">
+        <header class="widget-head">
+          <div>
+            <h2>Anomali pendapatan tahunan</h2>
+            <p class="widget-sub">|z| &gt; {{ yearlyAnomalies()?.threshold ?? 2 }} · {{ year() }}</p>
+          </div>
+          <span class="count-chip">{{ yearlyAnomalyCount() }}</span>
+        </header>
+        @if (yearlyAnomalyList().length === 0) {
+          <p class="empty">Tidak ada anomali pada tahun ini.</p>
+        } @else {
+          <ul class="anom-list">
+            @for (a of yearlyAnomalyList(); track a.month) {
+              <li>
+                <span class="anom-icon" [class.below]="a.direction === 'below'">
+                  <span class="material-symbols-outlined" aria-hidden="true">
+                    {{ a.direction === 'below' ? 'south_west' : 'north_east' }}
+                  </span>
+                </span>
+                <span class="anom-main">
+                  <span class="anom-date">{{ fmtMonth(a.month) }}</span>
+                  <span class="anom-desc">
+                    {{ a.direction === 'below' ? 'di bawah' : 'di atas' }} rata-rata tahunan
+                  </span>
+                  <span class="anom-desc">{{ fmt(a.order_count) }} order</span>
+                </span>
+                <span class="anom-values">
+                  <span class="anom-revenue">{{ fmt(a.revenue) }}</span>
+                  <span class="anom-z">z {{ fmtScore(a.z_score) }}</span>
+                </span>
+              </li>
+            }
+          </ul>
+        }
+        @if (yearlyAnomalies(); as ya) {
+          <p class="anom-meta">
+            Rata-rata {{ fmt(ya.mean) }} · simpangan {{ fmt(ya.std_dev) }}
+          </p>
+        }
+      </article>
+
       <article class="widget span-bars">
         <header class="widget-head">
           <div>

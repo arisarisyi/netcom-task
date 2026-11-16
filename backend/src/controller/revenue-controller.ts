@@ -28,4 +28,16 @@ export class RevenueController {
         }
     }
 
+    static async monthlyRevenueAnomalies(req: Request, res: Response, next: NextFunction) {
+        try {
+            const response = await RevenueService.monthlyRevenueAnomalies(req.query);
+            logger.debug("response : " + JSON.stringify(response));
+            res.status(200).json({
+                data: response,
+            });
+        } catch (e) {
+            next(e);
+        }
+    }
+
 }

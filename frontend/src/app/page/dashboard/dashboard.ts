@@ -39,6 +39,27 @@ interface RevenueAnomalyResponse {
   data: RevenueAnomaly[];
 }
 
+interface MonthlyRevenue {
+  month: number;
+  revenue: number;
+  order_count: number;
+}
+
+interface MonthlyRevenueAnomaly extends MonthlyRevenue {
+  z_score: number | null;
+  is_anomaly: boolean;
+  direction: 'above' | 'below' | null;
+}
+
+interface MonthlyRevenueAnomalyResponse {
+  year: number;
+  threshold: number;
+  mean: number;
+  std_dev: number;
+  anomaly_count: number;
+  data: MonthlyRevenueAnomaly[];
+}
+
 interface OrderRow {
   order_id: string;
   customer_id: string;
@@ -65,6 +86,8 @@ const MONTH_NAMES = [
   'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
   'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember',
 ];
+
+const MONTH_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
 
 const WEEKDAYS = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
 const WEEKDAY_JS = [1, 2, 3, 4, 5, 6, 0];
@@ -129,6 +152,7 @@ export class Dashboard implements OnInit {
 
   protected readonly revenue = signal<DailyRevenue[]>([]);
   protected readonly anomalies = signal<RevenueAnomalyResponse | null>(null);
+  protected readonly yearlyAnomalies = signal<MonthlyRevenueAnomalyResponse | null>(null);
   protected readonly prevTotals = signal<{ revenue: number; orders: number } | null>(null);
 
   protected readonly loading = signal(true);
@@ -148,6 +172,11 @@ export class Dashboard implements OnInit {
   protected readonly anomalyCount = computed(() => this.anomalies()?.anomaly_count ?? 0);
   protected readonly anomalyList = computed(() =>
     (this.anomalies()?.data ?? []).filter((row) => row.is_anomaly),
+  );
+
+  protected readonly yearlyAnomalyCount = computed(() => this.yearlyAnomalies()?.anomaly_count ?? 0);
+  protected readonly yearlyAnomalyList = computed(() =>
+    (this.yearlyAnomalies()?.data ?? []).filter((row) => row.is_anomaly),
   );
 
   protected readonly revenueDelta = computed(() =>
@@ -193,17 +222,24 @@ export class Dashboard implements OnInit {
       anomaly: this.http.get<{ data: RevenueAnomalyResponse }>('/api/revenues/anomalies', {
         params: this.params(month, year).set('threshold', '2'),
       }),
+      yearly: this.http.get<{ data: MonthlyRevenueAnomalyResponse }>(
+        '/api/revenues/anomalies/yearly',
+        {
+          params: new HttpParams().set('year', String(year)).set('threshold', '2'),
+        },
+      ),
       prev: this.http.get<{ data: DailyRevenueResponse }>('/api/revenues/daily', {
         params: this.params(prevMonth.m, prevMonth.y),
       }),
     }).subscribe({
-      next: ({ daily, anomaly, prev }) => {
+      next: ({ daily, anomaly, yearly, prev }) => {
         if (month !== this.month() || year !== this.year()) return;
         const prevRows = prev.data?.data ?? [];
         const prevRevenue = prevRows.reduce((s, r) => s + r.revenue, 0);
         const prevOrders = prevRows.reduce((s, r) => s + r.order_count, 0);
         this.revenue.set(daily.data?.data ?? []);
         this.anomalies.set(anomaly.data ?? null);
+        this.yearlyAnomalies.set(yearly.data ?? null);
         this.prevTotals.set({ revenue: prevRevenue, orders: prevOrders });
         this.hasLoaded = true;
       },
@@ -443,5 +479,9 @@ export class Dashboard implements OnInit {
   protected fmtScore(z: number | null): string {
     if (z === null) return '—';
     return z.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+
+  protected fmtMonth(month: number): string {
+    return MONTH_SHORT[month - 1] + ' ' + this.year();
   }
 }

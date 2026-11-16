@@ -281,6 +281,56 @@
               "body": "{\n  \"data\": {\n    \"month\": 9,\n    \"year\": 2017,\n    \"threshold\": 2,\n    \"mean\": 12000.5,\n    \"std_dev\": 3200.1,\n    \"anomaly_count\": 2,\n    \"data\": [\n      { \"date\": \"2017-09-15\", \"revenue\": 24500.0, \"order_count\": 20, \"z_score\": 3.9, \"is_anomaly\": true, \"direction\": \"above\" },\n      { \"date\": \"2017-09-20\", \"revenue\": 1800.0, \"order_count\": 2, \"z_score\": -3.2, \"is_anomaly\": true, \"direction\": \"below\" }\n    ]\n  }\n}"
             }
           ]
+        },
+        {
+          "name": "Yearly revenue anomalies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/revenues/anomalies/yearly?year=2017&threshold=2",
+              "host": ["{{base_url}}"],
+              "path": ["api", "revenues", "anomalies", "yearly"],
+              "query": [
+                {
+                  "key": "year",
+                  "value": "2017",
+                  "description": "Tahun 2000-2100 (wajib)"
+                },
+                {
+                  "key": "threshold",
+                  "value": "2",
+                  "description": "Z-score threshold, default 2 (0.1-10)"
+                }
+              ]
+            },
+            "description": "Deteksi anomali pendapatan bulanan dalam satu tahun berbasis z-score."
+          },
+          "response": [
+            {
+              "name": "200 OK",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "raw": "{{base_url}}/api/revenues/anomalies/yearly?year=2017&threshold=2",
+                  "host": ["{{base_url}}"],
+                  "path": ["api", "revenues", "anomalies", "yearly"],
+                  "query": [
+                    { "key": "year", "value": "2017" },
+                    { "key": "threshold", "value": "2" }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                { "key": "Content-Type", "value": "application/json" }
+              ],
+              "cookie": [],
+              "body": "{\n  \"data\": {\n    \"year\": 2017,\n    \"threshold\": 2,\n    \"mean\": 950000.0,\n    \"std_dev\": 260000.0,\n    \"anomaly_count\": 1,\n    \"data\": [\n      { \"month\": 11, \"revenue\": 2100000.0, \"order_count\": 7300, \"z_score\": 4.42, \"is_anomaly\": true, \"direction\": \"above\" }\n    ]\n  }\n}"
+            }
+          ]
         }
       ]
     },

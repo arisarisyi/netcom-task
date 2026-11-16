@@ -47,6 +47,7 @@ docker exec -it netcom-postgres psql -U postgres -d test_be
 - CRUD 9 tabel dataset: customers, sellers, products, product_category_translation, geolocation, orders, order_items, order_payments, order_reviews. Semua table mendapat kolom audit (`created_at/by`, `updated_at/by`, `deleted_at/by`) dan soft delete via Sequelize `paranoid`.
 - Grafik revenue harian per bulan/tahun (order berstatus `canceled` tidak dihitung).
 - Deteksi anomali revenue harian dalam satu bulan pakai z-score; threshold bisa diatur via query param.
+- Deteksi anomali revenue bulanan dalam satu tahun pakai z-score; threshold bisa diatur via query param.
 - Halaman pesanan yang belum dikirim (status `created`, `approved`, `invoiced`, `processing`).
 - Semua request divalidasi dengan Zod; error handler terpusat dengan format respons `{ "data": ... }` / `{ "errors": ... }`.
 
@@ -63,6 +64,7 @@ Secured:
 
 - `GET /api/revenues/daily?year=2018&month=5`
 - `GET /api/revenues/anomalies?year=2018&month=5&threshold=2`
+- `GET /api/revenues/anomalies/yearly?year=2018&threshold=2`
 - CRUD standar per resource: `GET/POST /api/{resource}`, `GET/PUT/DELETE /api/{resource}/{id}` (list mendukung `?page=&limit=&sort=&dir=`):
 
   `/api/product-categories`, `/api/geolocations`, `/api/customers`, `/api/sellers`, `/api/products`, `/api/orders`, `/api/order-items`, `/api/order-payments`, `/api/order-reviews`

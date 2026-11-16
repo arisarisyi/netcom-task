@@ -13,4 +13,9 @@ export class RevenueValidation {
         threshold: z.coerce.number().min(0.1).max(10).default(2),
     });
 
+    static readonly ANOMALY_YEARLY: ZodType = z.object({
+        year: z.coerce.number().int().min(2000).max(2100),
+        threshold: z.coerce.number().min(0.1).max(10).default(2),
+    });
+
 }

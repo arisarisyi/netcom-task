@@ -105,11 +105,12 @@
 
 .span-chart { grid-column: span 4; }
 .span-anom { grid-column: span 2; }
-.span-bars { grid-column: span 2; }
-.span-orders { grid-column: span 4; }
+.span-yearly { grid-column: span 2; }
+.span-bars { grid-column: span 4; }
+.span-orders { grid-column: span 6; }
 
 @media (max-width: 959px) {
-  .span-chart, .span-anom, .span-bars, .span-orders {
+  .span-chart, .span-anom, .span-yearly, .span-bars, .span-orders {
     grid-column: 1 / -1;
   }
 }

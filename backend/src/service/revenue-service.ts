@@ -39,6 +39,33 @@ interface RevenueRow {
     order_count: number;
 }
 
+export interface MonthlyRevenue {
+    month: number;
+    revenue: number;
+    order_count: number;
+}
+
+export interface MonthlyRevenueAnomaly extends MonthlyRevenue {
+    z_score: number | null;
+    is_anomaly: boolean;
+    direction: "above" | "below" | null;
+}
+
+export interface MonthlyRevenueAnomalyResponse {
+    year: number;
+    threshold: number;
+    mean: number;
+    std_dev: number;
+    anomaly_count: number;
+    data: MonthlyRevenueAnomaly[];
+}
+
+interface MonthlyRevenueRow {
+    month: number;
+    revenue: number;
+    order_count: number;
+}
+
 const round2 = (value: number): number => Math.round(value * 100) / 100;
 
 export class RevenueService {
@@ -131,6 +158,85 @@ export class RevenueService {
 
         return {
             month: params.month,
+            year: params.year,
+            threshold: params.threshold,
+            mean: round2(mean),
+            std_dev: round2(stdDev),
+            anomaly_count: anomalies.filter((row) => row.is_anomaly).length,
+            data: anomalies,
+        };
+    }
+
+    private static async fetchMonthlyRevenue(year: number): Promise<MonthlyRevenue[]> {
+        const [rows] = await sequelize.query(`
+            SELECT
+                EXTRACT(MONTH FROM o.order_purchase_timestamp)::int AS month,
+                SUM(i.price + i.freight_value)::float8              AS revenue,
+                COUNT(DISTINCT o.order_id)::int                     AS order_count
+            FROM orders o
+            JOIN order_items i ON i.order_id = o.order_id
+            WHERE o.order_status <> 'canceled'
+              AND o.order_purchase_timestamp >= make_date($year, 1, 1)
+              AND o.order_purchase_timestamp <  make_date($year, 1, 1) + interval '1 year'
+            GROUP BY 1
+            ORDER BY 1
+        `, {
+            bind: {year},
+        });
+
+        const revenueByMonth = new Map(
+            (rows as MonthlyRevenueRow[]).map((row) => [Number(row.month), row]),
+        );
+
+        const data: MonthlyRevenue[] = [];
+        for (let month = 1; month <= 12; month++) {
+            const row = revenueByMonth.get(month);
+            data.push({
+                month,
+                revenue: row ? Number(row.revenue) : 0,
+                order_count: row ? Number(row.order_count) : 0,
+            });
+        }
+        return data;
+    }
+
+    static async monthlyRevenueAnomalies(query: {
+        year?: unknown;
+        threshold?: unknown;
+    }): Promise<MonthlyRevenueAnomalyResponse> {
+        const params = Validation.validate(RevenueValidation.ANOMALY_YEARLY, {
+            year: query.year,
+            threshold: query.threshold,
+        }) as {year: number; threshold: number};
+
+        const data = await this.fetchMonthlyRevenue(params.year);
+
+        const total = data.reduce((sum, row) => sum + row.revenue, 0);
+        const mean = total / data.length;
+        const variance = data.reduce((sum, row) => sum + (row.revenue - mean) ** 2, 0) / data.length;
+        const stdDev = Math.sqrt(variance);
+
+        const anomalies: MonthlyRevenueAnomaly[] = data.map((row) => {
+            if (stdDev === 0) {
+                return {...row, z_score: null, is_anomaly: false, direction: null};
+            }
+            const zScore = round2((row.revenue - mean) / stdDev);
+            const isAnomaly = Math.abs(zScore) > params.threshold;
+            let direction: MonthlyRevenueAnomaly["direction"] = null;
+            if (isAnomaly && zScore > 0) {
+                direction = "above";
+            } else if (isAnomaly) {
+                direction = "below";
+            }
+            return {
+                ...row,
+                z_score: zScore,
+                is_anomaly: isAnomaly,
+                direction,
+            };
+        });
+
+        return {
             year: params.year,
             threshold: params.threshold,
             mean: round2(mean),
